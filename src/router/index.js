@@ -1,18 +1,34 @@
-// No need to import Vue directly in Vue 3
-import { createRouter, createWebHistory } from 'vue-router'; // Correct Vue Router 4 imports
+
+import { createRouter, createWebHistory } from 'vue-router';
+
+
 import Home from '@/components/Home.vue';
 import Products from '@/components/Products.vue';
 
-// Define routes
+// Define the routes for your application
 const routes = [
-  { path: '/home', component: Home },
-  { path: '/products', component: Products },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home,
+  },
+  {
+    path: '/products',
+    name: 'Products',
+    component: Products,
+  },
+  {
+    path: '/',
+    redirect: '/home',
+  },
+
 ];
 
-// Create the router instance with createWebHistory
+
 const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
 
 export default router;

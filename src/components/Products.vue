@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <h2>Product Management</h2>
+  <div class="main">
     <ProductForm @add-product="$emit('add-product', $event)" />
     <ProductList :products="products" @edit-product="$emit('edit-product', $event)" />
   </div>
