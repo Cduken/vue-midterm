@@ -1,37 +1,22 @@
 <template>
   <div id="app">
     <nav>
-      <router-link class="logo" to="/home" >Cdu<span>ken</span></router-link>
+      <router-link class="logo" to="/home">Cdu<span>ken</span></router-link>
       <div class="links">
-      <router-link to="/home">Home</router-link>
-      <router-link to="/products">Products</router-link>
-    </div>
+        <router-link to="/home">Home</router-link>
+        <router-link to="/products">Products</router-link>
+      </div>
     </nav>
-
-    <!-- This will render the component based on the current route -->
-    <router-view @add-product="addProduct" @edit-product="editProduct" :products="products" />
+    <router-view />
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      products: [], // This will hold the list of products
-    };
-  },
-  methods: {
-    addProduct(product) {
-      // Add new product to the products array
-      this.products.push(product);
-    },
-    editProduct({ index, product }) {
-      // Update the product at the specific index
-      this.products.splice(index, 1, product);
-    },
-  },
+  name: 'App',
 };
 </script>
+
 
 <style>
 

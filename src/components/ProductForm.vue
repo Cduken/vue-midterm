@@ -32,16 +32,14 @@ export default {
   },
   methods: {
     submitProduct() {
-      // Emit the product data to the parent component
       this.$emit('add-product', { ...this.product });
 
-      // Clear the form fields
       this.product.name = '';
       this.product.price = null;
       this.product.description = '';
 
-      // Redirect to the products page
-      this.$router.push({ name: 'product-list' }); // Adjust the route name according to your router setup
+
+      this.$router.push({ name: 'product-list' });
     },
   },
 };

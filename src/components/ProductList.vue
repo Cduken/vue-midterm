@@ -1,19 +1,42 @@
 <template>
   <div class="container">
-    <ul>
-      <li v-for="(product, index) in products" :key="index">
-        <span>{{ product.name }} - ${{ product.price }}</span>
-        <button @click="editProduct(index)">Edit</button>
-
-        <div v-if="editingIndex === index">
-          <input v-model="product.name" />
-          <input v-model="product.price" type="number" />
-          <textarea v-model="product.description"></textarea>
-          <button @click="saveProduct(index)">Save</button>
-          <button @click="cancelEdit">Cancel</button> <!-- Optional cancel button -->
-        </div>
-      </li>
-    </ul>
+    <div class="table-wrapper" v-if="products.length > 0" >
+      <table>
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(product, index) in products" :key="index">
+            <td>
+              <span v-if="editingIndex !== index">{{ product.name }}</span>
+              <input v-else v-model="product.name" />
+            </td>
+            <td>
+              <span v-if="editingIndex !== index">₱{{Intl.NumberFormat('en-PH').format(product.price) }}.00</span>
+              <input v-else v-model="product.price" type="number" />
+            </td>
+            <td>
+              <span v-if="editingIndex !== index">{{ product.description }}</span>
+              <textarea v-else v-model="product.description" v-show="editingIndex === index"></textarea>
+            </td>
+            <td>
+              <button v-if="editingIndex !== index" @click="editProduct(index)">Edit</button>
+              <div v-else>
+                <button @click="cancelEdit(index)">Save</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div v-else>
+      <p>No products available.</p>
+    </div>
   </div>
 </template>
 
@@ -27,32 +50,71 @@ export default {
   },
   methods: {
     editProduct(index) {
-      this.editingIndex = index; // Set the index of the product being edited
+      this.editingIndex = index;
     },
     saveProduct(index) {
       this.$emit('edit-product', { index, product: this.products[index] });
-      this.editingIndex = null; // Reset editing index after saving
+      this.editingIndex = null;
     },
     cancelEdit() {
-      this.editingIndex = null; // Reset editing index to cancel editing
-    }
+      this.editingIndex = null;
+    },
   },
 };
 </script>
 
 <style scoped>
-
-ul {
-  list-style-type: none; /* Remove default list styling */
-  padding: 0; /* Remove default padding */
+.container {
+  display: flex;
+  justify-content: center;
 }
 
-li {
-  margin: 10px 0; /* Add some space between list items */
+.table-wrapper {
+  width: 1100px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
 }
 
 input, textarea {
-  display: block; /* Ensure inputs and textareas take up full width */
-  margin: 5px 0; /* Add margin for spacing */
+  width: 100%;
+  box-sizing: border-box;
+  resize: none;
+}
+
+button {
+  margin: 5px 0;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #f0f0f06d;
+}
+
+button:focus {
+  outline: none;
+}
+
+thead {
+  background-color: #f4f4f4;
+}
+
+tr:hover {
+  cursor: pointer;
+  background-color: #8f8e8e;
 }
 </style>

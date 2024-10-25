@@ -2,16 +2,14 @@
   <div class="main">
     <div class="col1">
       <div class="text-box">
-      <h2>Hi, I'm</h2>
-      <h1 class="title">Ernest Cabarrubias</h1>
-      <p class="text">
-        I'm a Frontend Developer!
-      </p>
-      <button class="btn" @click="$router.push('/products')">View Products</button>
+        <h2>Hi, I'm</h2>
+        <h1 class="title">Ernest Cabarrubias</h1>
+        <p class="text">I'm a Frontend Developer!</p>
+        <button class="btn" @click="$router.push('/products')">View Products</button>
       </div>
       <div class="img-box">
-      <img src="../assets/transparent_image.png" alt="img">
-    </div>
+        <img src="../assets/transparent_image.png" alt="img" />
+      </div>
     </div>
   </div>
 </template>
@@ -21,6 +19,7 @@ export default {
   name: "HomePage",
 };
 </script>
+
 
 <style scoped>
 
